@@ -1,0 +1,71 @@
+﻿@model IEnumerable<WebApplication1.Models.Employee>
+
+@{
+    ViewData["Title"] = "EmployeeList";
+}
+
+<h2>EmployeeList</h2>
+
+<p class="navbar-right">
+    <a asp-action="Create" class="btn btn-primary" >Add New</a>
+</p>
+
+<div class="container">
+    <form method="post" asp-controller="Employee" asp-action="Import" enctype="multipart/form-data">
+        <input type="file" name="file"/>
+        <button type="submit"> Import from Excel</button>
+    </form>
+</div>
+
+
+<table class="table">
+    <thead>
+        <tr>
+             
+                <th>
+                    @Html.DisplayNameFor(model => model.EmpName)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.Contact)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.Email)
+                </th>                
+                <th>
+                    @Html.DisplayNameFor(model => model.Description)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.Department)
+                </th>
+            <th></th> 
+        </tr>
+    </thead>
+    <tbody>
+@foreach (var item in Model) {
+        <tr>
+            
+
+            <td>
+                @Html.DisplayFor(modelItem => item.EmpName)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Contact)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Email)
+            </td>           
+            <td>
+                @Html.DisplayFor(modelItem => item.Description)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Department)
+            </td>
+            <td>
+                @Html.ActionLink("Edit", "Create", new { id = item.ID, item.EmpName, item.Email, item.Contact, item.Description, item.DepID }, new { @class = "btn btn-success" }) |
+                @Html.ActionLink("Delete", "DeleteEmployee", new { id = item.ID }, new { @class = "btn btn-danger", onclick = "return confirm('Do you really want to delete?')" })
+            </td>
+            
+        </tr>
+}
+    </tbody>
+</table>
